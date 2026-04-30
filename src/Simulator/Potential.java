@@ -1,4 +1,4 @@
-package src;
+package src.Simulator;
 public class Potential {
     private double[] v;
     private int N;

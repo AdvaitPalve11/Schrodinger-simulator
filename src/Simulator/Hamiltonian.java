@@ -1,4 +1,4 @@
-package src;
+package src.Simulator;
 // The Hamiltonian energy operator: H = T+V
 // T = Kinetic ,  V = Potential
 
