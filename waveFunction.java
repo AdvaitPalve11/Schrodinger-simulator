@@ -46,5 +46,14 @@ public class waveFunction {
         psi[i] = new complex(real, imag);
     }
 }
+public double totalProbability() {
+    double sum = 0;
+
+    for (int i = 0; i < N; i++) {
+        sum += psi[i].magnitudeSquared();
+    }
+
+    return sum * dx;
+}
 
 }
