@@ -16,4 +16,10 @@ public class Potential {
     public double[] getV(){
         return v;
     }
+
+    public void createHarmonic(double omega, double[] x) {
+    for (int i = 0; i < N; i++) {
+        v[i] = 0.5 * omega * omega * x[i] * x[i];
+    }
+}
 }
