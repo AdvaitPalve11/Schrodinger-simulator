@@ -54,61 +54,48 @@ public class Solver {
         }
     }
 
-   private Complex[] solveLinearSystem(
-        Complex[][] A,
-        Complex[] b
-) {
+   private Complex[] solveLinearSystem(Complex[][] A, Complex[] b) {
+       
     int N = b.length;
+    Complex[] lower = new Complex[N];
+    Complex[] diag = new Complex[N];
+    Complex[] upper = new Complex[N];
 
-    Complex[][] M = new Complex[N][N];
+    Complex[] cPrime = new Complex[N];
+    Complex[] dPrime = new Complex[N];
     Complex[] x = new Complex[N];
-    Complex[] rhs = new Complex[N];
 
-    // Copy matrix and rhs
+    // Extract tridiagonal parts
     for (int i = 0; i < N; i++) {
-        rhs[i] = b[i];
+        diag[i] = A[i][i];
 
-        for (int j = 0; j < N; j++) {
-            M[i][j] = A[i][j];
+        if (i > 0) {
+            lower[i] = A[i][i - 1];
+        } else {
+            lower[i] = new Complex(0, 0);
+        }
+
+        if (i < N - 1) {
+            upper[i] = A[i][i + 1];
+        } else {
+            upper[i] = new Complex(0, 0);
         }
     }
+    // Forward sweep
+    cPrime[0] = upper[0].divide(diag[0]);
+    dPrime[0] = b[0].divide(diag[0]);
 
-    // Forward elimination
-    for (int k = 0; k < N - 1; k++) {
-
-        for (int i = k + 1; i < N; i++) {
-
-            Complex factor =
-                    M[i][k].divide(M[k][k]);
-
-            for (int j = k; j < N; j++) {
-                M[i][j] =
-                        M[i][j].subtract(
-                                factor.multiply(M[k][j])
-                        );
-            }
-
-            rhs[i] =
-                    rhs[i].subtract(
-                            factor.multiply(rhs[k])
-                    );
-        }
+    for (int i = 1; i < N; i++) {
+        Complex denom = diag[i].subtract(lower[i].multiply(cPrime[i - 1]));
+        cPrime[i] = upper[i].divide(denom);
+        dPrime[i] = b[i].subtract(lower[i].multiply(dPrime[i - 1])).divide(denom);
     }
 
     // Back substitution
-    for (int i = N - 1; i >= 0; i--) {
-        x[i] = rhs[i];
-
-        for (int j = i + 1; j < N; j++) {
-            x[i] =
-                    x[i].subtract(
-                            M[i][j].multiply(x[j])
-                    );
-        }
-
-        x[i] = x[i].divide(M[i][i]);
+    x[N - 1] = dPrime[N - 1];
+    for (int i = N - 2; i >= 0; i--) {
+        x[i] = dPrime[i].subtract(cPrime[i].multiply(x[i + 1]));
     }
-
     return x;
 }
 }
