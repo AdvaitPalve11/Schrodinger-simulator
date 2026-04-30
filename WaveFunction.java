@@ -71,6 +71,21 @@ public double expectationX() {
     return sum * dx;
 }
 
+public double expectationEnergy(Hamiltonian h) {
+    Complex[][] H = h.getMatrix();
+    double energy = 0;
+
+    for (int i = 0; i < N; i++) {
+        Complex sum = new Complex(0, 0);
+
+        for (int j = 0; j < N; j++)
+            sum = sum.add(H[i][j].multiply(psi[j]));
+
+        energy += psi[i].conjugate().multiply(sum).re;
+    }
+
+    return energy * dx;
+}
 
 
 }
