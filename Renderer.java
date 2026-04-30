@@ -42,14 +42,8 @@ public class Renderer {
         for (int i = 0; i < N; i++) {
             if (V[i] > 0) {
                 double x = (double) i / N * width;
-                double barrierHeight = V[i] * 20;
-
-                gc.strokeLine(
-                        x,
-                        height,
-                        x,
-                        height - barrierHeight
-                );
+                double barrierHeight = Math.min(V[i] * 2, height * 0.5);
+                gc.strokeLine(x, height, x,height - barrierHeight );
             }
         }
     }
