@@ -1,4 +1,4 @@
-package src.Simulator;
+package simulator;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Renderer {

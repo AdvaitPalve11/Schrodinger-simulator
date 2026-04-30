@@ -1,4 +1,4 @@
-package src.Simulator;
+package simulator;
 public class Complex{
 
     public double re;

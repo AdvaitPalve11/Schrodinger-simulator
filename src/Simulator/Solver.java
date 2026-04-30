@@ -1,16 +1,26 @@
-package src.Simulator;
+package simulator;
 
 public class Solver {
 
     private WaveFunction waveFunction;
+    private Hamiltonian hamiltonian;
     private double dt = 0.0001;
 
     private Complex[][] A;
     private Complex[][] B;
 
     public Solver(Hamiltonian hamiltonian, WaveFunction waveFunction) {
+        this.hamiltonian = hamiltonian;
         this.waveFunction = waveFunction;
+        rebuildMatrices();
+    }
 
+    public void setDt(double dt) {
+        this.dt = dt;
+        rebuildMatrices();
+    }
+
+    private void rebuildMatrices() {
         int N = waveFunction.getSize();
         Complex[][] H = hamiltonian.getMatrix();
 
@@ -40,16 +50,14 @@ public class Solver {
 
         for (int i = 0; i < N; i++) {
             rhs[i] = new Complex(0, 0);
-            for (int j = 0; j < N; j++) {
+            for (int j = 0; j < N; j++)
                 rhs[i] = rhs[i].add(B[i][j].multiply(psi[j]));
-            }
         }
-    
+
         Complex[] newPsi = solveLinearSystem(A, rhs);
 
-        for (int i = 0; i < N; i++){
-            psi[i] = newPsi[i];
-        }
+        for (int i = 0; i < N; i++) psi[i] = newPsi[i];
+
         psi[0] = new Complex(0, 0);
         psi[N - 1] = new Complex(0, 0);
     }
@@ -67,8 +75,8 @@ public class Solver {
 
         for (int i = 0; i < N; i++) {
             diag[i] = A[i][i];
-            lower[i] = (i > 0) ? A[i][i - 1] : new Complex(0, 0);
-            upper[i] = (i < N - 1) ? A[i][i + 1] : new Complex(0, 0);
+            lower[i] = i > 0 ? A[i][i - 1] : new Complex(0, 0);
+            upper[i] = i < N - 1 ? A[i][i + 1] : new Complex(0, 0);
         }
 
         cPrime[0] = upper[0].divide(diag[0]);
@@ -76,15 +84,18 @@ public class Solver {
 
         for (int i = 1; i < N; i++) {
             Complex denom = diag[i].subtract(lower[i].multiply(cPrime[i - 1]));
-            if (i < N - 1) cPrime[i] = upper[i].divide(denom);
+
+            if (i < N - 1)
+                cPrime[i] = upper[i].divide(denom);
+
             dPrime[i] = b[i].subtract(lower[i].multiply(dPrime[i - 1])).divide(denom);
         }
 
         x[N - 1] = dPrime[N - 1];
 
-        for (int i = N - 2; i >= 0; i--){
-             x[i] = dPrime[i].subtract(cPrime[i].multiply(x[i + 1]));
-            }
+        for (int i = N - 2; i >= 0; i--)
+            x[i] = dPrime[i].subtract(cPrime[i].multiply(x[i + 1]));
+
         return x;
     }
 }
