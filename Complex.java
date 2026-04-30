@@ -32,4 +32,8 @@ public class Complex{
         return re + " + " + im + "i";
     }
     
+    public Complex divide(Complex other) {
+    double denominator = other.re * other.re +other.im * other.im;
+    return new Complex((this.re * other.re + this.im * other.im) / denominator, (this.im * other.re - this.re * other.im) / denominator );
+}
 }
