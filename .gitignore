@@ -74,3 +74,11 @@ frames/
 
 # Profiling files
 *.hprof
+
+*.class
+bin/
+out/
+.vscode/
+.settings/
+.project
+.classpath
