@@ -10,7 +10,7 @@ public class App extends Application {
 
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 600;
-
+    
     @Override
     public void start(Stage stage) {
 
@@ -43,13 +43,18 @@ public class App extends Application {
         stage.show();
 
         // Animation loop
-        new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                try {
-                    solver.step();
-                    wf.normalize();
-                    renderer.draw(gc, WIDTH, HEIGHT);
+     new AnimationTimer() {
+        int frameCount = 0;
+        @Override
+        public void handle(long now) {
+            frameCount++;
+                if (frameCount % 100 == 0) 
+                    System.out.println("Total Probability: " + wf.totalProbability() );
+    
+             try {
+                solver.step();
+                wf.normalize();
+                renderer.draw(gc, WIDTH, HEIGHT);
                 } catch (Exception e) {
                     e.printStackTrace();
                     stop();
