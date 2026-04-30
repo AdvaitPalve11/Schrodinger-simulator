@@ -15,14 +15,14 @@ public class App extends Application {
     public void start(Stage stage) {
 
         // Create simulation objects
-        int N = 500;
-        double dx = 0.1;
+        int N = 1000;
+        double dx = 0.05;
 
         WaveFunction wf = new WaveFunction(N, dx);
-        wf.initializeGaussian(-15, 2, 8);
+        wf.initializeGaussian(-15, 2, 4);
 
         Potential potential = new Potential(N);
-        potential.createBarrier(245, 255, 5);
+        potential.createHarmonic(0.05,wf.getX());
 
         Hamiltonian hamiltonian = new Hamiltonian(wf, potential);
 
@@ -49,7 +49,7 @@ public class App extends Application {
         public void handle(long now) {
             frameCount++;
                 if (frameCount % 100 == 0) 
-                    System.out.println("Total Probability: " + wf.totalProbability() );
+                    System.out.println("Total Probability: " + wf.totalProbability() + "⟨x⟩ = " + wf.expectationX());
     
              try {
                 solver.step();
