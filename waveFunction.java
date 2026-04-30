@@ -1,24 +1,24 @@
-public class waveFunction {
-    private complex[] psi; // complex psi function values
+public class WaveFunction {
+    private Complex[] psi; // complex psi function values
     private double[] x ; // spatial grid positions
     private int N; // Number of grid points
     private double dx; //Distance between points
 
 
-    public waveFunction(int grids , double dx){
+    public WaveFunction(int grids , double dx){
         this.N = grids;
         this.dx = dx;
 
-        psi = new complex[N];
+        psi = new Complex[N];
         x = new double[N];
 
          for (int i = 0; i < N; i++) {
             x[i] = (i - N / 2.0) * dx; // creates symmetric space centered at zero
-            psi[i] = new complex(0, 0); // Set psi valuse both re = 0 , Im = 0
+            psi[i] = new Complex(0, 0); // Set psi valuse both re = 0 , Im = 0
         }
     }
 
-    public complex[] getPsi(){  // Return All Psi function values
+    public Complex[] getPsi(){  // Return All Psi function values
         return psi;
     }
 
@@ -51,7 +51,7 @@ public class waveFunction {
         double real = gaussian * Math.cos(k * x[i]);
         double imag = gaussian * Math.sin(k * x[i]);
 
-        psi[i] = new complex(real, imag);
+        psi[i] = new Complex(real, imag);
         normalize();
     }
 }

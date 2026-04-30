@@ -1,4 +1,4 @@
-public class main {
+public class Main {
     public static void main(String[] args) {
 
         // Number of spatial grid points
@@ -8,20 +8,18 @@ public class main {
         double dx = 0.1;
 
         // Create wavefunction
-        waveFunction wf = new waveFunction(N, dx);
+        WaveFunction wf = new WaveFunction(N, dx);
 
         // Initial Gaussian packet
-        //
         // x0 = starting position
         // sigma = width
         // k = momentum
         wf.initializeGaussian(-15, 2, 2);
 
         // Create potential
-        potential potential = new potential(N);
+        Potential potential = new Potential(N);
 
         // Create barrier in middle
-        //
         // from grid 240 to 260
         // height = 5
         potential.createBarrier(240, 260, 5);
@@ -30,15 +28,16 @@ public class main {
         Hamiltonian hamiltonian = new Hamiltonian(wf, potential);
 
         // Create solver
-        solver solver = new solver(hamiltonian, wf);
+        Solver solver = new Solver(hamiltonian, wf);
 
         // Run simulation
         for (int t = 0; t < 1000; t++) {
             solver.step();
+            wf.normalize();
 
             // Print probability at center
             if (t % 100 == 0) {
-                complex[] psi = wf.getPsi();
+                Complex[] psi = wf.getPsi();
 
                 System.out.println(
                         "Step " + t +

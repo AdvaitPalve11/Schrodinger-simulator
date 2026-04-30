@@ -1,27 +1,27 @@
-public class complex{
+public class Complex{
 
     public double re;
     public double im;
 
-    public complex(double R , double I){
+    public Complex(double R , double I){
         re = R;
         im = I;
     }
 
-    public complex add(complex num){
-        return new complex(this.re + num.re , this.im + num.im);
+    public Complex add(Complex num){
+        return new Complex(this.re + num.re , this.im + num.im);
     }
 
-    public complex subtract(complex num){
-        return new complex(this.re - num.re , this.im - num.im);
+    public Complex subtract(Complex num){
+        return new Complex(this.re - num.re , this.im - num.im);
     }
 
-    public complex multiply(complex num){
-        return new complex(this.re * num.re - this.im * num.im , this.re * num.im + this.im * num.re);
+    public Complex multiply(Complex num){
+        return new Complex(this.re * num.re - this.im * num.im , this.re * num.im + this.im * num.re);
     } 
 
-        public complex scale(double scalar) {
-        return new complex( this.re * scalar, this.im * scalar);
+        public Complex scale(double scalar) {
+        return new Complex( this.re * scalar, this.im * scalar);
     }
 
      public double magnitudeSquared() {

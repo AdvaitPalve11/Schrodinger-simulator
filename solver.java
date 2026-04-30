@@ -1,29 +1,29 @@
-public class solver {
+public class Solver {
     private Hamiltonian hamiltonian;
-    private waveFunction waveFunction;
+    private WaveFunction waveFunction;
     private double dt = 0.001;
 
-    public solver(Hamiltonian hamiltonian, waveFunction waveFunction) {
+    public Solver(Hamiltonian hamiltonian, WaveFunction waveFunction) {
         this.hamiltonian = hamiltonian;
         this.waveFunction = waveFunction;
     }
 
     public void step() {
-        complex[][] H = hamiltonian.getMatrix();
-        complex[] psi = waveFunction.getPsi(); // Get Current wavefunction Ψ(t)
+        Complex[][] H = hamiltonian.getMatrix();
+        Complex[] psi = waveFunction.getPsi(); // Get Current wavefunction Ψ(t)
         int N = waveFunction.getSize();
-        complex[] newPsi = new complex[N];
+        Complex[] newPsi = new Complex[N];
 
         for (int i = 0; i < N; i++) {
-            newPsi[i] = new complex(0, 0);
+            newPsi[i] = new Complex(0, 0);
 
             for (int j = 0; j < N; j++) {
-                complex factor = new complex(0, -dt).multiply(H[i][j]); // factor = -iHΔt
+                Complex factor = new Complex(0, -dt).multiply(H[i][j]); // factor = -iHΔt
               // U ≈ I - iHΔt    
                     if (i == j) {
                         // If i == j:
                         // add 1 to diagonal -> Adds I to diagonal 
-                        factor = factor.add(new complex(1, 0));
+                        factor = factor.add(new Complex(1, 0));
                     }
                         // newPsi[i] += U[i][j] * psi[j]
                     newPsi[i] = newPsi[i].add( factor.multiply(psi[j])); // 

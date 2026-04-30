@@ -1,8 +1,8 @@
-public class potential {
+public class Potential {
     private double[] v;
     private int N;
 
-    public potential(int n){
+    public Potential(int n){
        this.N = n;
         v = new double[N];
     }
