@@ -65,4 +65,12 @@ public double totalProbability() {
     return sum * dx;
 }
 
+public double expectationX() {
+    double sum = 0;
+    for (int i = 0; i < N; i++) sum += x[i] * psi[i].magnitudeSquared();
+    return sum * dx;
+}
+
+
+
 }
