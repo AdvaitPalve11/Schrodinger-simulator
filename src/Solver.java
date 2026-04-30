@@ -1,3 +1,5 @@
+package src;
+
 public class Solver {
 
     private WaveFunction waveFunction;

@@ -1,3 +1,4 @@
+package src;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Renderer {

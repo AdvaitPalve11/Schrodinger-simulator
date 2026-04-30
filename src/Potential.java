@@ -1,3 +1,4 @@
+package src;
 public class Potential {
     private double[] v;
     private int N;

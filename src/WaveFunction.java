@@ -1,3 +1,4 @@
+package src;
 public class WaveFunction {
     private Complex[] psi; // complex psi function values
     private double[] x ; // spatial grid positions

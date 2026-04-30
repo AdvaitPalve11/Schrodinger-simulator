@@ -1,3 +1,4 @@
+package src;
 // The Hamiltonian energy operator: H = T+V
 // T = Kinetic ,  V = Potential
 
