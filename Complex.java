@@ -36,4 +36,8 @@ public class Complex{
     double denominator = other.re * other.re +other.im * other.im;
     return new Complex((this.re * other.re + this.im * other.im) / denominator, (this.im * other.re - this.re * other.im) / denominator );
 }
+
+public Complex conjugate() {
+    return new Complex(re, -im);
+}
 }
