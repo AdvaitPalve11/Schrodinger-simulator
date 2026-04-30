@@ -1,12 +1,12 @@
 public class waveFunction {
     private complex[] psi; // complex psi function values
-    private double[] x ; // Stores position of particle in 1D
+    private double[] x ; // spatial grid positions
     private int N; // Number of grid points
     private double dx; //Distance between points
 
 
     public waveFunction(int grids , double dx){
-        N = grids;
+        this.N = grids;
         this.dx = dx;
 
         psi = new complex[N];
@@ -34,6 +34,14 @@ public class waveFunction {
         return dx;      // Returns distance between two Adjacent points
     }
 
+    public void normalize() {
+    double total = totalProbability();
+    double factor = Math.sqrt(total);
+
+    for (int i = 0; i < N; i++) {
+        psi[i] = psi[i].scale(1.0 / factor);
+    }
+}
 
     public void initializeGaussian(double x0, double sigma, double k) {
  // x0 intial center position of particle , sigma = width of packet , k = wave number
@@ -44,6 +52,7 @@ public class waveFunction {
         double imag = gaussian * Math.sin(k * x[i]);
 
         psi[i] = new complex(real, imag);
+        normalize();
     }
 }
 public double totalProbability() {
