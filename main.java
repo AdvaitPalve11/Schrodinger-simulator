@@ -1,7 +1,7 @@
-public class Main {
+public class main {
     public static void main(String[] args) {
-        Complex a = new Complex(1, 2);
-        Complex b = new Complex(3, 4);
+        complex a = new complex(1, 2);
+        complex b = new complex(3, 4);
 
         System.out.println(a.add(b));
         System.out.println(a.multiply(b));
