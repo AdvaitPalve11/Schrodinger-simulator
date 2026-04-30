@@ -1,0 +1,39 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Download JavaFX
+        run: |
+          wget https://download2.gluonhq.com/openjfx/21.0.2/openjfx-21.0.2_linux-x64_bin-sdk.zip
+          unzip openjfx-21.0.2_linux-x64_bin-sdk.zip
+
+      - name: Compile
+        run: |
+          javac --module-path openjfx-21.0.2_linux-x64_bin-sdk/javafx-sdk-21.0.2/lib \
+          --add-modules javafx.controls src/simulator/*.java
+
+      - name: Package
+        run: |
+          jar --create --file schrodinger-simulator.jar -C src .
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: schrodinger-simulator.jar
