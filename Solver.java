@@ -1,6 +1,5 @@
 public class Solver {
 
-    private Hamiltonian hamiltonian;
     private WaveFunction waveFunction;
     private double dt = 0.0001;
 
@@ -8,7 +7,6 @@ public class Solver {
     private Complex[][] B;
 
     public Solver(Hamiltonian hamiltonian, WaveFunction waveFunction) {
-        this.hamiltonian = hamiltonian;
         this.waveFunction = waveFunction;
 
         int N = waveFunction.getSize();

@@ -49,7 +49,7 @@ public class App extends Application {
         public void handle(long now) {
             frameCount++;
                 if (frameCount % 100 == 0) 
-                    System.out.println("Total Probability: " + wf.totalProbability() + "⟨x⟩ = " + wf.expectationX());
+                    System.out.println("Total Probability: " + wf.totalProbability() + "⟨x⟩ = " + wf.expectationX() + "E = " + wf.expectationEnergy(hamiltonian) );
     
              try {
                 solver.step();
