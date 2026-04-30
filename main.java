@@ -14,7 +14,7 @@ public class Main {
         // x0 = starting position
         // sigma = width
         // k = momentum
-        wf.initializeGaussian(-15, 2, 2);
+        wf.initializeGaussian(-15, 2, 8);
 
         // Create potential
         Potential potential = new Potential(N);
@@ -22,7 +22,7 @@ public class Main {
         // Create barrier in middle
         // from grid 240 to 260
         // height = 5
-        potential.createBarrier(240, 260, 5);
+        potential.createBarrier(245, 255, 5);
 
         // Build Hamiltonian
         Hamiltonian hamiltonian = new Hamiltonian(wf, potential);
@@ -31,7 +31,7 @@ public class Main {
         Solver solver = new Solver(hamiltonian, wf);
 
         // Run simulation
-        for (int t = 0; t < 1000; t++) {
+        for (int t = 0; t < 5000; t++) {
             solver.step();
             wf.normalize();
 
